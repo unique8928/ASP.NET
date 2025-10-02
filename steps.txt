@@ -1,0 +1,117 @@
+🔹 1. Create a New ASP.NET MVC Project
+1. Open Visual Studio → Click Create a new project.
+2. Select ASP.NET Web Application (.NET Framework) → Next.
+3. Name your project → Choose location → Create.
+4. Select MVC template → Click Create.
+
+
+🔹 2. Create a Model (Class)
+
+Model represents data & business logic.
+
+Right-click on Models folder → Add → Class.
+
+Example: Student.cs
+
+
+namespace MyApp.Models
+{
+    public class Student
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+}
+
+🔹 3. Create a Controller
+
+Controller handles logic & routes.
+
+Right-click on Controllers folder → Add → Controller.
+
+Select MVC 5 Controller - Empty → Name it StudentController.
+
+
+using System.Web.Mvc;
+using MyApp.Models;
+
+namespace MyApp.Controllers
+{
+    public class StudentController : Controller
+    {
+        // Action to display list of students
+        public ActionResult Index()
+        {
+            var students = new List<Student>
+            {
+                new Student { Id = 1, Name = "Samiksha", Age = 21 },
+                new Student { Id = 2, Name = "Rohan", Age = 22 }
+            };
+
+            return View(students);
+        }
+
+        // Action to show details
+        public ActionResult Details(int id)
+        {
+            var student = new Student { Id = id, Name = "Test Student", Age = 20 };
+            return View(student);
+        }
+    }
+}
+
+
+🔹 4. Create Views
+
+Views are HTML + Razor templates.
+
+1. Right-click inside Index() method → Add View.
+
+Name: Index
+
+Template: List
+
+Model class: Student
+
+
+This creates Views/Student/Index.cshtml.
+
+Example code inside Index.cshtml:
+
+@model IEnumerable<MyApp.Models.Student>
+
+<h2>Student List</h2>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+    </tr>
+
+@foreach (var student in Model)
+{
+    <tr>
+        <td>@student.Id</td>
+        <td>@student.Name</td>
+        <td>@student.Age</td>
+    </tr>
+}
+</table>
+
+
+🔹 5. Run the Project
+
+Press F5 or click Run.
+
+Go to URL: http://localhost:xxxx/Student/Index
+
+You will see the student list table.
+
+✅ Summary of Flow:
+
+Model (Student.cs) → stores data.
+
+Controller (StudentController.cs) → fetches data and passes it.
+
+View (Index.cshtml) → displays data.
